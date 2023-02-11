@@ -148,7 +148,13 @@ class _GameState extends State<Game> {
   Widget dialogBox(String text) {
     return AlertDialog(
       title: const Text('Game Over'),
-      content: Text(text),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(text),
+          Text('Score : ${length - 1}'),
+        ],
+      ),
       actions: [
         TextButton(
             onPressed: () {
@@ -418,6 +424,7 @@ class _GameState extends State<Game> {
           Container(
             width: screenWidth,
             height: screenHeight * 0.1,
+            child: Center(child: Text('Score : ${length - 1}')),
           ),
 
           // Game PlayGround...
