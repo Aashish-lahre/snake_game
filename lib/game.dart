@@ -145,6 +145,26 @@ class _GameState extends State<Game> {
     }
   }
 
+  Widget dialogBox(String text) {
+    return AlertDialog(
+      title: const Text('Game Over'),
+      content: Text(text),
+      actions: [
+        TextButton(
+            onPressed: () {
+              restart();
+              Navigator.of(context).pop();
+            },
+            child: const Text('Restart')),
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Close')),
+      ],
+    );
+  }
+
   void checkFuture() {
     Future.delayed(Duration(milliseconds: 500), () {
       if (futureBool) {
@@ -163,6 +183,10 @@ class _GameState extends State<Game> {
 
         if (check) {
           // game over dialog box
+          showDialog(
+            context: context,
+            builder: (c) => dialogBox('Reason: Bite itself'),
+          );
         } else {
           // food eaten or not
           if (positions[0].posX == getFood!.dx.toInt() &&
@@ -176,21 +200,43 @@ class _GameState extends State<Game> {
             if (direction != Direction.Right) {
               setState(() {});
               checkFuture();
+            } else {
+              // wall collided
+              // dialogBox();
+              showDialog(
+                context: context,
+                builder: (c) => dialogBox('Reason: Wall colided'),
+              );
             }
           } else if (positions[0].posX == 0) {
             if (direction != Direction.Left) {
               setState(() {});
               checkFuture();
+            } else {
+              showDialog(
+                context: context,
+                builder: (c) => dialogBox('Reason: Wall colided'),
+              );
             }
           } else if (positions[0].posY == mainCanvasHeight - 15) {
             if (direction != Direction.Bottom) {
               setState(() {});
               checkFuture();
+            } else {
+              showDialog(
+                context: context,
+                builder: (c) => dialogBox('Reason: Wall colided'),
+              );
             }
           } else if (positions[0].posY == 0) {
             if (direction != Direction.Top) {
               setState(() {});
               checkFuture();
+            } else {
+              showDialog(
+                context: context,
+                builder: (c) => dialogBox('Reason: Wall colided'),
+              );
             }
           } else {
             setState(() {});

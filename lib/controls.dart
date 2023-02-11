@@ -10,41 +10,124 @@ class Controls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        // UP
-        ElevatedButton(
-            onPressed: () {
-              callback(Direction.Top);
-            },
-            child: Text('up')),
+        AspectRatio(
+          // widthFactor: 0.5,
+          // heightFactor: 1,
+          aspectRatio: 1,
+          child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
+            child: Stack(
+              // alignment: Alignment.bottomCenter,
+              children: [
+                // top
+                button(
+                  Alignment.topCenter,
+                  () {
+                    callback(Direction.Top);
+                  },
+                  const Icon(
+                    Icons.keyboard_arrow_up,
+                    size: 30,
+                  ),
+                ),
+                // right
+                button(
+                  Alignment.centerRight,
+                  () {
+                    callback(Direction.Right);
+                  },
+                  const Icon(
+                    Icons.keyboard_arrow_right,
+                    size: 30,
+                  ),
+                ),
+                // bottom
+                button(
+                  Alignment.bottomCenter,
+                  () {
+                    callback(Direction.Bottom);
+                  },
+                  const Icon(
+                    Icons.keyboard_arrow_down,
+                    size: 30,
+                  ),
+                ),
 
-        // DOWN
-        ElevatedButton(
-            onPressed: () {
-              callback(Direction.Bottom);
-            },
-            child: Text('down')),
-
-        // RIGHT
-        ElevatedButton(
-            onPressed: () {
-              callback(Direction.Right);
-            },
-            child: Text('right')),
-
-        // LEFT
-        ElevatedButton(
-            onPressed: () {
-              callback(Direction.Left);
-            },
-            child: Text('left')),
-
-        ElevatedButton(
+                //left
+                button(
+                  Alignment.centerLeft,
+                  () {
+                    callback(Direction.Left);
+                  },
+                  const Icon(
+                    Icons.keyboard_arrow_left,
+                    size: 30,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        IconButton(
             onPressed: () {
               restart();
             },
-            child: Text('Restart')),
+            icon: Icon(Icons.restart_alt_sharp)),
       ],
     );
   }
 }
+
+Widget button(Alignment align, VoidCallback callback, Icon icon) {
+  return Align(
+      alignment: align,
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: InkWell(
+          customBorder: CircleBorder(),
+          onTap: callback,
+          splashColor: Colors.amber,
+          child: icon,
+        ),
+      ));
+}
+
+// Row(
+//       children: [
+//         // UP
+//         ElevatedButton(
+//             onPressed: () {
+//               callback(Direction.Top);
+//             },
+//             child: Text('up')),
+
+//         // DOWN
+//         ElevatedButton(
+//             onPressed: () {
+//               callback(Direction.Bottom);
+//             },
+//             child: Text('down')),
+
+//         // RIGHT
+//         ElevatedButton(
+//             onPressed: () {
+//               callback(Direction.Right);
+//             },
+//             child: Text('right')),
+
+//         // LEFT
+//         ElevatedButton(
+//             onPressed: () {
+//               callback(Direction.Left);
+//             },
+//             child: Text('left')),
+
+//         ElevatedButton(
+//             onPressed: () {
+//               restart();
+//             },
+//             child: Text('Restart')),
+//       ],
+//     );
